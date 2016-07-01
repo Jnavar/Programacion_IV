@@ -4,35 +4,39 @@
 # Declare images below this line, using the image statement.
 # - Declara imágenes bajo esta línea, usando 'image' como
 #   en el ejemplo.
-
+image bg comisaria="comisaria.jpg"
 image bg escena="fuera_del_pueblo3.png"
 image bg interro="sala_interrogatorio.jpg"
 image detective = "Grupo7/DetectivePensarr.png"
 image art="Grupo5/hablando3.2.png"
 image burt="Grupo3/burt1.png"
 image carl="Grupo2/Hablando.png"
+ 
 
 # Declare characters used by this game.
 # - Declara los personajes usados en el juego como en el
 #   ejemplo.
-define e = Character('detective', color="#c8ffc8")
-define a = Character('art', color="#c8ffc8")
-define b = Character('burt',color="#c8ffc8")
-define c = Character('carl',color="#c8ffc8")
+define e = Character('Detective', color="#c8ffc8")
+define a = Character('Art', color="#c8ffc8")
+define b = Character('Burt',color="#c8ffc8")
+define c = Character('Carl',color="#c8ffc8")
 
 # The game starts here.
 # - El juego comienza aquí.
-label start:
     
-    scene bg escena
+label start:
+
+    scene bg comisaria
     show detective at right
-    e "Hay que resolver este caso"
-    e "preguntemos a los acusados"
+    e "Tenemos un nuevo caso para resolver el dia de hoy..."
+    e "y tu debes ayudarnos con el, para llegar al asesino."
+    e "Preguntemos a los acusados"
+    e "Que pase el primer sospechoso para su declaracion."
 
     scene bg interro
     show art at left
-    a "buenas tardes detective"
-    a "vengo a dar mi declaracion y me liberen de toda culpa"
+    a "Buenas detective"
+    a "Vengo a dar mi declaracion y me liberen de toda culpa"
     hide art 
 
     show detective at right
@@ -56,8 +60,9 @@ label start:
     show burt at left
     b "Buenas tardes oficial"
     hide burt
-    show detective at left
-    e "Buenas tardes burt "
+    show detective at right
+    e "Buenas tardes Burt "
+    e "Que tal Sr. Burt...Solo le haremos preguntas de rutinas no tienes nada de que temer"
     e "Cuentame sobre lo que sabes "
     
     menu:
@@ -104,9 +109,12 @@ label start:
         asesino=list(prolog.query("murderer(X)"))
         cantidad = len(asesino)
         i = 0
-        while ( i < cantidad):
-           e ("Segun las pruebas y declaraciones obtenidas el culpable es %s"%asesino[i]["X"])
-           i=i+1
+        if cantidad == 0:
+           e("No hay asesino")
+        else:       
+           while ( i < cantidad):
+              e ("Segun las pruebas y declaraciones obtenidas el culpable es %s"%asesino[i]["X"])
+              i=i+1
               
    
     return
