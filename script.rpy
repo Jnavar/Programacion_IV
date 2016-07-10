@@ -50,6 +50,10 @@ label start:
         "Soy inocente, Burt conocia a la victima al igual que carl":    
             python:
                    nueva_lista.append("claims(art,[[innocent,art],[knewVic,burt],[knewVic,carl]]).""\n")
+
+        "Soy inocente, Burt estaba dentro del pueblo. Vi a Carl discutir con la victima,el puede ser el culpable":    
+            python:
+                   nueva_lista.append("claims(art,[[innocent,art],[inTown,burt],[murderer,carl]]).""\n")
         
 
 
@@ -66,9 +70,13 @@ label start:
     e "Cuentame sobre lo que sabes "
     
     menu:
-        "Bueno yo estuve fuera del pueblo. No conocia a la victima":    
+        "Bueno yo estuve dentro del pueblo. No conocia a la victima":    
             python:
                    nueva_lista.append("claims(burt,[[inTown,burt],[didNotKnowVic,burt]]).""\n")
+
+        "Bueno yo estuve fuera del pueblo. Aunque conocia a la victima, no he sido yo":    
+            python:
+                   nueva_lista.append("claims(burt,[[outOfTown,burt],[knowVic,burt],[innocent,burt]]).""\n")
         
     
     e "creo que eso es todo puedes retirarte"   
@@ -76,16 +84,20 @@ label start:
  
     hide detective
     show carl at left
-    c "Buenas tardes oficial"
+    c "Buenas oficial"
     hide carl
     show detective at left
-    e "Buenas tardes carl "
+    e "Buenas carl "
     e "Cuentame respecto al caso "
     
     menu:
-        "soy inocente, yo estuve dentro del pueblo y a Burt fuera del pueblo ":    
+        "Soy inocente, yo estuve dentro del pueblo y via Burt salir del pueblo ":    
             python:
                    nueva_lista.append("claims(carl,[[innocent,carl],[outOfTown,burt],[inTown,carl]]).""\n")
+
+        "Soy inocente, yo no conocia a la victima y vi a Burt dentro del pueblo ":    
+            python:
+                   nueva_lista.append("claims(carl,[[innocent,carl],[inTown,burt],[didNotKnowVic,carl]]).""\n")
        
 
 
