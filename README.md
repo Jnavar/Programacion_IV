@@ -2,6 +2,7 @@
 Proyecto parcial 3 ProgIV
 
 Integrantes
-?
 
-Veo el trabajo, más no veo quienes lo integraron
+Jaison Castro   EC-043-9993
+Jamel Navarro   8-861-236 
+José Umaña      8-836-975
