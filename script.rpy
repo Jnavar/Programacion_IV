@@ -1,135 +1,132 @@
 ﻿# You can place the script of your game in this file.
+# - Puedes colocar el 'script' de tu juego en este archivo.
 
 # Declare images below this line, using the image statement.
-# eg. image eileen happy = "eileen_happy.png"
-image bg interrogar="sala_interrogatorio.jpg"
-image bg interrogar2 ="sala_interrogatorio3.jpg"
-image bg afueras= "fuera_del_pueblo3.png"
-
+# - Declara imágenes bajo esta línea, usando 'image' como
+#   en el ejemplo.
+image bg comisaria="comisaria.jpg"
+image bg escena="fuera_del_pueblo3.png"
+image bg interro="sala_interrogatorio.jpg"
 image detective = "Grupo7/DetectivePensarr.png"
-image detective2= "Grupo7/DetectivePensarr2.png"
-image detective3 ="Grupo7/detectivee2.png"
-image detective4= "Grupo7/DetectiveConfronn.png"
-image testigo ="Grupo1/133.png"
-image burt= "Grupo5/hablando3.2.png"
-image burt2= "Grupo5/hablando3.1.png"
-image art= "Grupo2/Hablandoo 2.png"
-image art2= "Grupo2/Peensando.png"
-image carl= "Grupo3/carl.png"
-image carl2= "Grupo3/hablandoo2.png"
-
-
-image bg Culpable="cadeia5.jpg"
+image art="Grupo5/hablando3.2.png"
+image burt="Grupo3/burt1.png"
+image carl="Grupo2/Hablando.png"
+ 
 
 # Declare characters used by this game.
-define e = Character('TvNOticias', color="#c8ffc8")
-define a = Character('Detective', color="#c8ffc8")
-define b = Character('Testigo', color="#c8ffc8" )
-define burt= Character('Burt', color="#c8ffc8")
-define art= Character('Art', color="#c8ffc8")
-define carl= Character('Carl', color="#c8ffc8")
+# - Declara los personajes usados en el juego como en el
+#   ejemplo.
+define e = Character('Detective', color="#c8ffc8")
+define a = Character('Art', color="#c8ffc8")
+define b = Character('Burt',color="#c8ffc8")
+define c = Character('Carl',color="#c8ffc8")
 
 # The game starts here.
+# - El juego comienza aquí.
+    
 label start:
-        
-    scene bg afueras
-    e "Ultimas noticias se cometio un asesinato en las afueras de la ciudad"
-    
+
+    scene bg comisaria
     show detective at right
-    a "Al parecer la victima fue abandonada aqui"
-    hide detective
-    show detective2 at left
-    a "Preguntemosle al testigo"
+    e "Tenemos un nuevo caso para resolver el dia de hoy..."
+    e "y tu debes ayudarnos con el, para llegar al asesino."
+    e "Preguntemos a los acusados"
+    e "Que pase el primer sospechoso para su declaracion."
 
-    scene bg interrogar
-    show detective3 at left
-    a "Por favor que pase el testigo"
-    hide detective3
+    scene bg interro
+    show art at left
+    a "Buenas detective"
+    a "Vengo a dar mi declaracion y me liberen de toda culpa"
+    hide art 
 
-    show testigo at right 
-    b "Buenas tardes oficial"
-    hide testigo
-    
-    show detective3 at left
-    a "Buenas tardes señorita"
-    a "Todo lo que sepa nos puede ser de gran ayuda"  
-    hide detective3
-
-    show testigo at right 
-    b "no tengo mucha informacion, pero si logre ver a la victima acompañada de 3 hombres"  
-    b "en un auto en las afueras de la ciudad"
-
-    scene bg interrogar2
-    show detective4 at right
-    a "Buenas tardes señor Burt"
-    hide detective4
-
-    show burt at left
-    burt "Buenas tardes oficial"
-    hide burt
- 
-    show detective4 at right
-    a "Como sabe fue acusado, ya que fue visto con la victima"
-    a "Cuentenos sobre usted y la victima"
-    hide detective4
-    show burt at left
-    burt "Yo me encontraba fuera del pueblo "
-    burt "Yo no conoci a la victima" 
-    hide burt
-    show burt2 at left
-    burt "."
-    hide burt2
-    show detective4 at right
-    a "Bueno esto seria todo por ahora se puede retirar"  
-    hide detective4
-
-    show detective4 at right
-    a "ahora que pase art"
-    a "buenas tardes art " 
-    hide detective4
-    show art at right
-    art "Buenas tardes oficial " 
-    art "digame en que lo puedo ayudar"  
-    hide art
-    show detective4 at right
-    a "usted fue visto junto a la victima"
-    hide detective4
-    show  art2 at right
-    art "Se que burt era amigo de la victima"
-    art "art y la victima eran enemigos"
-    hide art2
-    show art at right
-    art "No tengo mas que decir"
-    hide art
-    show detective4 
-    a "eso seria todo, gracias"
-    a "que pase carl"
-    hide detective4 
-    show carl at left
-    carl "Buenas tardes"
-    hide carl
-    show detective4 at right
-    a "Fue visto con la victima que me puede decir sobre eso"
-    hide detective4
-    show carl2
-    carl "Yo me econtraba dentro del pueblo "
-    carl "tambien estuvo dentro del pueblo art y burt"
-    carl "Yo y Burt eramos amigos de la victima" 
-    
-
-    
-    scene bg Culpable
     show detective at right
-    show art2 at left
+    e"Buenas tardes art " 
+    e"por favor respondeme algunas preguntas sobre el caso"
+    e"Tenemos muchas dudas con tus declaraciones preliminares"
+
     python:
-          from pyswip import Prolog
-          prolog=Prolog()
-          prolog.consult("/home/maze/Escritorio/Adriandetective.pl")
-          asesino=list(prolog.query("murderer(X)"))
-          a ("Segun las prubas y declaraciones obtenidas el culpable es %s"%asesino[0]["X"])
-          a ("Segun las prubas y declaraciones obtenidas el culpable es %s"%asesino[1]["X"])
-          
-    
-     
+       nueva_lista = []
+    menu:
+        "Soy inocente, Burt conocia a la victima al igual que carl":    
+            python:
+                   nueva_lista.append("claims(art,[[innocent,art],[knewVic,burt],[knewVic,carl]]).""\n")
 
+        "Soy inocente, Burt estaba dentro del pueblo. Vi a Carl discutir con la victima,el puede ser el culpable":    
+            python:
+                   nueva_lista.append("claims(art,[[innocent,art],[inTown,burt],[murderer,carl]]).""\n")
+        
+
+
+    e "creo que eso es todo puedes retirarte" 
+    e "que pase el siguiente por favor"   
+
+    hide detective
+    show burt at left
+    b "Buenas tardes oficial"
+    hide burt
+    show detective at right
+    e "Buenas tardes Burt "
+    e "Que tal Sr. Burt...Solo le haremos preguntas de rutinas no tienes nada de que temer"
+    e "Cuentame sobre lo que sabes "
+    
+    menu:
+        "Bueno yo estuve dentro del pueblo. No conocia a la victima":    
+            python:
+                   nueva_lista.append("claims(burt,[[inTown,burt],[didNotKnowVic,burt]]).""\n")
+
+        "Bueno yo estuve fuera del pueblo. Aunque conocia a la victima, no he sido yo":    
+            python:
+                   nueva_lista.append("claims(burt,[[outOfTown,burt],[knowVic,burt],[innocent,burt]]).""\n")
+        
+    
+    e "creo que eso es todo puedes retirarte"   
+    e "que pase el siguiente por favor" 
+ 
+    hide detective
+    show carl at left
+    c "Buenas oficial"
+    hide carl
+    show detective at left
+    e "Buenas carl "
+    e "Cuentame respecto al caso "
+    
+    menu:
+        "Soy inocente, yo estuve dentro del pueblo y via Burt salir del pueblo ":    
+            python:
+                   nueva_lista.append("claims(carl,[[innocent,carl],[outOfTown,burt],[inTown,carl]]).""\n")
+
+        "Soy inocente, yo no conocia a la victima y vi a Burt dentro del pueblo ":    
+            python:
+                   nueva_lista.append("claims(carl,[[innocent,carl],[inTown,burt],[didNotKnowVic,carl]]).""\n")
+       
+
+
+    python:
+        archivo = open('/home/yaimcj/Documentos/Proyecto/murderer.pl','r')
+        archivo2 =open('/home/yaimcj/Documentos/Proyecto/murderer2.pl','r')
+        lista1 = list(archivo)
+        lista2 = list(archivo2)
+        lista3 = list(set(nueva_lista))
+        nuevo_doc = open('/home/yaimcj/Escritorio/murder.pl','w')
+        for x in lista1:
+            nuevo_doc.write(x)
+        for x in lista3:
+            nuevo_doc.write(x)
+        for x in lista2:
+            nuevo_doc.write(x)
+        nuevo_doc.close()
+        from pyswip import Prolog
+        prolog=Prolog()
+        prolog.consult("/home/yaimcj/Escritorio/murder.pl")
+        asesino=list(prolog.query("murderer(X)"))
+        cantidad = len(asesino)
+        i = 0
+        if cantidad == 0:
+           e("No hay asesino")
+        else:       
+           while ( i < cantidad):
+              e ("Segun las pruebas y declaraciones obtenidas el culpable es %s"%asesino[i]["X"])
+              i=i+1
+              
+   
     return
